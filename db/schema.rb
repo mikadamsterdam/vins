@@ -41,10 +41,21 @@ end
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307104528) do
+ActiveRecord::Schema.define(version: 20160307105532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "reviews", force: :cascade do |t|
+    t.string   "expert_name"
+    t.text     "review"
+    t.integer  "rating"
+    t.integer  "wine_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "reviews", ["wine_id"], name: "index_reviews_on_wine_id", using: :btree
 
   create_table "wines", force: :cascade do |t|
     t.string   "name"
@@ -54,5 +65,6 @@ ActiveRecord::Schema.define(version: 20160307104528) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "reviews", "wines"
 end
 >>>>>>> newbranch
